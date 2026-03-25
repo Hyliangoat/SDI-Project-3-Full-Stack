@@ -1,0 +1,1 @@
+This folder will hold all front end calls to the back end, like login and getCards

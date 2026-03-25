@@ -1,0 +1,1 @@
+//Will use jwt to verify the token sent from the client, will be used as middleware for protected routes in app.js
