@@ -1,1 +1,51 @@
-//Knexfile.js is used to configure the connection to the database for Knex, which is a SQL query builder for Node.js. It typically contains settings for different environments (development, testing, production) and specifies the database client, connection details, and other options. This file is essential for setting up and managing the database interactions in a Node.js application using Knex.
+// Update with your config settings.
+
+/**
+ * @type { Object.<string, import("knex").Knex.Config> }
+ */
+module.exports = {
+
+  development: {
+    client: 'postgresql',
+    connection: {
+      host: 'db', //edit to db later when docker composing
+      user: 'postgres',
+      password: 'docker',
+      port: 5432,
+      database: 'cards_db'
+    }
+  },
+
+  staging: {
+    client: 'postgresql',
+    connection: {
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  },
+
+  production: {
+    client: 'postgresql',
+    connection: {
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  }
+
+};
