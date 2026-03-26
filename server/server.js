@@ -1,5 +1,5 @@
 //Will be the launcher for starting the server (think listen)
-require('dotenv').config();
+require('dotenv').config({path: '../.env'});
 const app = require('./app');
 
 const PORT = process.env.PORT || 8080;

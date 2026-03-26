@@ -4,9 +4,9 @@ const express = require('express');
 const knex = require('knex')(require('../db/knexfile.js')['development']);
 
 const router = express.Router();
+const {jwtCheck} = require('../middleware/auth.js')
 
-// Get all cards
-router.get('/', async (req, res) => {
+router.get('/', jwtCheck, async (req, res) => {
     try {
         const cards = await knex('cards').select('*');
         res.json(cards);
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Create a new card
+
 router.post('/', async (req, res) => {
     const { title, description } = req.body;
     try {

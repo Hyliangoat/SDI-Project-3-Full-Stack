@@ -10,10 +10,10 @@ app.use(express.json());
 
 // Routes
 const cardsRouter = require('./routes/cards');
-// const usersRouter = require('./routes/auth');
+const usersRouter = require('./routes/auth');
 
 app.use('/api/cards', cardsRouter);
-// app.use('/api/auth', usersRouter);
+app.use('/api/auth', usersRouter);
 
 app.get('/', (req, res) => {
   res.send('You don\'t belong here, boy, get back to the api...');
