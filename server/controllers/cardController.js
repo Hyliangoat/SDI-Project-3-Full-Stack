@@ -17,7 +17,14 @@ exports.getAllCards = async (req, res) => {
 
 exports.createCard = async (req, res) => {
     try{
-        console.log('createcard')
+        const userId = req.user.userId;
+        const {name, location, age, workplace, job, image} = req.body;
+        let lastId = await knex('cards').max('id').first();
+        console.log(lastId)
+        await knex('cards').insert({name: name, location_of_origin: location, age: age, workplace: workplace, job_title: job, image_url: image, user_id: userId})
+
+        res.json({message: 'Card has been stored'})
+
     }catch(err)
     {
         console.error(err)

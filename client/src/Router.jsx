@@ -5,7 +5,6 @@ import Menu from './pages/Menu'
 
 
 export default function MainRouter() {
-
     return(
         <Router>
             <Routes>
