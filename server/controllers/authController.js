@@ -1,5 +1,4 @@
 //Will hold logic for login/register/logout (bcrypt, jwt, etc)
-require('dotenv').config({path: '../../.env'});
 const knex = require('knex')(require('../db/knexfile.js')['development']);
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
@@ -43,12 +42,12 @@ exports.login = async (req,res) => {
         const match = await bcrypt.compare(password, user.password_hash)
 
         if(!match){
-            return res.status(401).json({error: "Invalid password"})
+            return res.status(401).json({message: "Invalid password"})
         }
 
         //Create the JWT
-        const token = jwt.sign({userId: user.id},` ${process.env.JWT_SECRET}`, {expiresIn: '4h'})
-
+        const token = jwt.sign({userId: user.id},`${process.env.JWT_SECRET}`, {expiresIn: '4h'})
+        console.log(`Jwt for login: ${process.env.JWT_SECRET}`)
         res.json({token})
 
     }catch(err){

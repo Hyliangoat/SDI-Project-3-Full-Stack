@@ -22,13 +22,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      DB_HOST: db
-      DB_USER: postgres
-      DB_PASSWORD: docker
-      DB_NAME: cards_db
+    env_file:
+      - .env
     volumes:
       - ./server:/app
+    command: sh -c "npx knex migrate:latest --knexfile ./db/knexfile.js && npx knex seed:run --knexfile ./db/knexfile.js && npm start"
   
   client:
     build: ./client

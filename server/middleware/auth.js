@@ -1,5 +1,4 @@
 //Will use jwt to verify the token sent from the client, will be used as middleware for protected routes in app.js
-
 const jwt = require('jsonwebtoken')
 
 const isLoggedIn = (req, res, next) => {
@@ -31,7 +30,7 @@ const jwtCheck = (req, res, next) => {
 
         next();
     }catch(err){
-        return res.status(403).json({error: "Invalid token"})
+        return res.status(403).json({error: `jwt thing: ${process.env.JWT_SECRET}`})
     }
 
 }
