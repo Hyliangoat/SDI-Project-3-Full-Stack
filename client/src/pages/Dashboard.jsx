@@ -3,7 +3,7 @@ import {ProfileContext} from '../contexts/ProfileContext'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
-import {getCards, createCard} from '../services/Cardservice'
+import {getCards, createCard, deleteCard} from '../services/Cardservice'
 import Header from '../components/Header'
 import DetailedCard from '../components/DetailedCard'
 
@@ -44,9 +44,11 @@ export default function Dashboard() {
             navi('/')
         }
     }
+
     const handleChange = (e) => {
         setImage(e.target.files[0])
     }
+
     const handleCreateSubmit = async (e) => {
         e.preventDefault()
         const form = e.target;
@@ -64,6 +66,12 @@ export default function Dashboard() {
     }
 
 
+      const handleDelete = async (id) => {
+        await deleteCard(id)
+        updatePage()
+      }
+
+
     if(cards.length < 1){
         return(
             <div className='noCards'>
@@ -78,6 +86,7 @@ export default function Dashboard() {
                     <input type='file' accept='image/*' name='image' onChange={handleChange} />
                     <button>Submit</button>
                 </form>
+                <button onClick={() => handleLogout()}>Logout</button>
             </div>
         )
     }
@@ -90,18 +99,25 @@ export default function Dashboard() {
             <h2>Your cards</h2>
             {cards.map (card => {
                 return(
-                    <div className='individualCard' key={card.id} onClick = {() => {
-                        setSelectedCard(card)
-                        setDetailPage(true)
-                    }}>
-                        <Card 
-                            name={card.name} 
-                            location={card.location_of_origin} 
-                            age={card.age} 
-                            workplace={card.workplace} 
-                            job={card.job_title} 
-                            image={card.image_url} 
-                         />
+                    <div key={card.id} className='cardContainer'>
+                        <div className='individualCard' onClick = {() => {
+                            setSelectedCard(card)
+                            setDetailPage(true)
+                        }}>
+                            <Card 
+                                id={card.id}
+                                name={card.name} 
+                                location={card.location_of_origin} 
+                                age={card.age} 
+                                workplace={card.workplace} 
+                                job={card.job_title} 
+                                image={card.image_url} 
+                            />
+                        </div>
+                        <button onClick={() => {
+                            setSelectedCard(card)
+                            handleDelete(card.id)
+                        }} className='deleteButton'>Delete</button>
                     </div>
                 )
             })}

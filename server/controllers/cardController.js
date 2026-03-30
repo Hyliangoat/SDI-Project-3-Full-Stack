@@ -51,3 +51,15 @@ exports.getCardById = async (req, res) => {
         res.status(500).send({message: 'Cards could not be found'})
     }
 }
+
+exports.deleteCard = async (req, res) => {
+    try{
+        const cardId = req.params.id;
+        await knex('cards').where({id: cardId}).del()
+        res.json({message: 'Card has been deleted'})
+    }catch(err)
+    {
+        console.error(err)
+        res.status(500).send({message: 'Card could not be deleted'})
+    }
+}

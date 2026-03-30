@@ -15,12 +15,13 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage });
 
-const {getAllCards, getCardById, createCard} = require('../controllers/cardController')
+const {getAllCards, getCardById, createCard, deleteCard} = require('../controllers/cardController')
 
 const {jwtCheck} = require('../middleware/auth.js')
 
 router.get('/', jwtCheck, getAllCards)
 router.get('/:id', jwtCheck, getCardById)
 router.post('/', jwtCheck, upload.single('image'), createCard)
+router.delete('/:id', jwtCheck, deleteCard)
 
 module.exports = router;

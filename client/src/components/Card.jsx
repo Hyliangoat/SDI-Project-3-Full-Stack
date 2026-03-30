@@ -1,6 +1,8 @@
 import React from 'react'
+import { deleteCard } from '../services/Cardservice'
 
-export default function Card({name, location, age, workplace, job, image }) {
+export default function Card({id, name, location, age, workplace, job, image }) {
+
   return (
     <div>
       <img src={`http://localhost:8080/uploads/${image}`} alt={name} height="50px" width="50px" />

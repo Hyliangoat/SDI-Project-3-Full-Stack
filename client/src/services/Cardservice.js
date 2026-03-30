@@ -7,7 +7,6 @@ const url = 'http://localhost:8080/api/cards';
 //Get/fetch all cards
 const authFetch = (url, options = {}) => {
     const token = localStorage.getItem("token")
-    console.log(token)
     return fetch(url, {
         ...options,
         headers: {
@@ -49,14 +48,30 @@ const createCard = async ({name, location, age, workplace, job, image}) => {
 
          if (!res.ok) {
             console.error('Failed to create card')
-            return res.json(); //Still return error message from server
+            return res.json(); 
         }
 
-        return res.json(); //Return server response (success message or token)
+        return res.json(); 
     }catch(err)
     {
         console.log('Uh oh spaghettios no card')
     }
 }
 
-export {getCards, createCard}
+const deleteCard = async (id) => {
+    try{
+        const res = await authFetch(`${url}/${id}`, {
+            method: 'DELETE'
+        })
+        if (!res.ok) {
+            console.error('Failed to delete card')
+            return res.json(); 
+        }
+        return res.json(); 
+    }catch(err)
+    {
+        console.log('Uh oh spaghettios we couldnt delete it')
+    }
+}
+
+export {getCards, createCard, deleteCard}
