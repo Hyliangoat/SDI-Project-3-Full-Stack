@@ -3,12 +3,12 @@ import React from 'react'
 export default function Card({name, location, age, workplace, job, image }) {
   return (
     <div>
+      <img src={`http://localhost:8080/uploads/${image}`} alt={name} height="50px" width="50px" />
       <p>Name: {name}</p>
       <p>Location: {location}</p>
       <p>Age: {age}</p>
       <p>Workplace: {workplace}</p>
       <p>Job: {job}</p>
-      <p>Image: <img src={`http://localhost:8080/uploads/${image}`} alt={name} height="50px" width="50px" /></p>
     </div>
   )
 }

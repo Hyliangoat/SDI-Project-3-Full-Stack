@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import {ProfileContext} from '../contexts/ProfileContext'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 import {getCards, createCard} from '../services/Cardservice'
 import Header from '../components/Header'
+import DetailedCard from '../components/DetailedCard'
 
 export default function Dashboard() {
     //extract user info and logout function from context
     const {user, logout} = useContext(ProfileContext)
     const [cards, setCards] = useState([])
     const [image, setImage] = useState(null)
+    const [detailPage, setDetailPage] = useState(false)
+    const [selectedCard, setSelectedCard] = useState(null)
+    const formRef = useRef(null)
     
     //Navigate for redirecting after logout
     const navi = useNavigate()
@@ -28,7 +32,6 @@ export default function Dashboard() {
     const updatePage = async () => {
         let cardList = await getCards();
         setCards(cardList);
-        form.reset()
         setImage(null)
     }
 
@@ -78,35 +81,56 @@ export default function Dashboard() {
             </div>
         )
     }
+    
+    if (!detailPage) {
+        return (
+            <div className='pageContainer'>
+            <Header setDetailPage={setDetailPage} />
+            <h1>You have arrived at your dashboard {user?.username}</h1>
+            <h2>Your cards</h2>
+            {cards.map (card => {
+                return(
+                    <div className='individualCard' key={card.id} onClick = {() => {
+                        setSelectedCard(card)
+                        setDetailPage(true)
+                    }}>
+                        <Card 
+                            name={card.name} 
+                            location={card.location_of_origin} 
+                            age={card.age} 
+                            workplace={card.workplace} 
+                            job={card.job_title} 
+                            image={card.image_url} 
+                         />
+                    </div>
+                )
+            })}
 
-    return (
-        <div className='pageContainer'>
-        <Header />
-        <h1>You have arrived at your dashboard {user?.username}</h1>
-        <h2>Your cards</h2>
-        {cards.map (card => {
-            return(
-                <div className='individualCard' key={card.id}>
-                    <Card name={card.name} location={card.location_of_origin} age={card.age} workplace={card.workplace} job={card.job_title} image={card.image_url}/>
-                </div>
-            )
-        })}
+            <h3>New card input temp form</h3>
 
-        <h3>New card input temp form</h3>
+            <form ref={formRef} onSubmit={handleCreateSubmit}>
+                <input type='text' name='name' placeholder='name' />
+                <input type='text' name='location' placeholder='location they are from' />
+                <input type='text' name='age' placeholder='age' />
+                <input type='text' name='workplace' placeholder='their workplace' />
+                <input type='text' name='job' placeholder='their full job title' />
+                <input type='file' accept='image/*' name='image' onChange={handleChange} />
+                <button onClick={() => formRef.current.reset()}>Submit</button>
+            </form>
+            <p>Image preview</p>
+            {image && <img src={URL.createObjectURL(image)} alt='preview' height='100px' width='100px' />}
 
-        <form onSubmit={handleCreateSubmit}>
-            <input type='text' name='name' placeholder='name' />
-            <input type='text' name='location' placeholder='location they are from' />
-            <input type='text' name='age' placeholder='age' />
-            <input type='text' name='workplace' placeholder='their workplace' />
-            <input type='text' name='job' placeholder='their full job title' />
-            <input type='file' accept='image/*' name='image' onChange={handleChange} />
-            <button>Submit</button>
-        </form>
-        <p>Image preview</p>
-        {image && <img src={URL.createObjectURL(image)} alt='preview' height='100px' width='100px' />}
+            <button onClick={() => handleLogout()}>Logout</button>
+            </div>
+        )
+    }
 
-        <button onClick={handleLogout}>Logout</button>
-        </div>
-    )
+    if (detailPage) {
+        return(
+            <div>
+                <Header setDetailPage={setDetailPage} />
+                <DetailedCard name={selectedCard.name} location={selectedCard.location_of_origin} age={selectedCard.age} workplace={selectedCard.workplace} job={selectedCard.job_title} image={selectedCard.image_url} details={selectedCard.description} phone={selectedCard.phone_number} email={selectedCard.email} />
+            </div>
+        )
+    }
 }

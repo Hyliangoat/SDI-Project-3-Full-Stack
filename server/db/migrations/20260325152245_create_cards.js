@@ -15,6 +15,9 @@ exports.up = function(knex) {
         table.string('job_title', 100);
         table.string('image_url', 255);
         table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
+        table.string('description', 1000)
+        table.string('phone_number', 50)
+        table.string('email', 100)
     })
 };
 

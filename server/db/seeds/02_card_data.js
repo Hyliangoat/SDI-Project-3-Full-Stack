@@ -6,9 +6,42 @@ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('cards').del()
   await knex('cards').insert([
-    {id: 1, name: 'Zhongwenman', location_of_origin: 'China', age: '56', workplace: 'Capital Hall', job_title: 'The god damned mayor', image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Zhongwenman.jpg/220px-Zhongwenman.jpg', user_id: 1},
-    {id: 2, name: 'Sophie Blanchard', location_of_origin: 'France', age: '45', workplace: 'Paris', job_title: 'Aeronaut', image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Sophie_Blanchar.jpg/220px-Sophie_Blanchar.jpg', user_id: 1},
-    {id: 3, name: 'Bessie Coleman', location_of_origin: 'United States', age: '34', workplace: 'United States', job_title: 'Aviator', image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Bessie_Coleman.jpg/220px-Bessie_Coleman.jpg', user_id: 2},
+    {id: 1, 
+      name: 'Zhongwenman', 
+      location_of_origin: 'China', 
+      age: '56', 
+      workplace: 'Capital Hall', 
+      job_title: 'The god damned mayor', 
+      image_url: '../uploads/notaperson3.jpg', 
+      user_id: 1,
+      description: 'Zhongwenman is the mayor of Capital Hall, a city in China. He is known for his strict policies and dedication to improving the city. Despite his tough exterior, he has a soft spot for his citizens and often goes out of his way to help those in need.',
+      phone_number: '555-1234',
+      email: 'zhongwenman@capitalhall.gov'
+    },
+    {id: 2, 
+      name: 'Sophie Blanchard', 
+      location_of_origin: 'France', 
+      age: '45', 
+      workplace: 'Paris', 
+      job_title: 'Aeronaut', 
+      image_url: '../uploads/notaperson2.jpg', 
+      user_id: 1,
+      description: 'Sophie Blanchard is a renowned aeronaut from France. She is known for her pioneering work in aviation and her dedication to advancing flight technology.',
+      phone_number: '555-5678',
+      email: 'sophie.blanchard@paris.aviation.fr'
+    },
+    {id: 3, 
+      name: 'Bessie Coleman', 
+      location_of_origin: 'United States', 
+      age: '34', 
+      workplace: 'United States', 
+      job_title: 'Aviator', 
+      image_url: '../uploads/notaperson1.jpg', 
+      user_id: 2,
+      description: 'Bessie Coleman was the first African American woman to earn a pilot certificate. She is known for her courage and determination in breaking barriers in aviation.',
+      phone_number: '555-9012',
+      email: 'bessie.coleman@unitedstates.aviation.us'
+    },
   ]);
 
   await knex.raw(
