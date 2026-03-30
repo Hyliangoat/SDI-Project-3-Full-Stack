@@ -20,4 +20,8 @@ exports.seed = async function(knex) {
     {id: 1, username: 'testaccount', password_hash: hash},
     {id: 2, username: 'throwaway', password_hash: hashTwo}
   ]);
+
+  await knex.raw(
+    "SELECT SETVAL('users_id_seq', (SELECT MAX(id) FROM users))"
+  );
 };

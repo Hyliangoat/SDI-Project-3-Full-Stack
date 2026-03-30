@@ -65,7 +65,7 @@ export default function Menu() {
     return (
         <>
             {/*Server messages*/}
-            <div className={data.success ? 'status ok-status' : 'status err-status'}>
+            <div className={data.success ? 'okStatus' : 'errStatus'}>
                 {data.message}
             </div>
 
@@ -81,7 +81,7 @@ export default function Menu() {
             />
 
             {/*Toggle login/signup*/}
-            <div className="signup-wrapper">
+            <div className="signupContainer">
                 <p>{modeText}</p>
                 <button onClick={handleSignUpText} className='login-btn signup-btn'>
                     {toggleBtnTxt}
