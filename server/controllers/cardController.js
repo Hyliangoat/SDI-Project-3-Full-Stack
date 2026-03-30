@@ -18,10 +18,20 @@ exports.getAllCards = async (req, res) => {
 exports.createCard = async (req, res) => {
     try{
         const userId = req.user.userId;
-        const {name, location, age, workplace, job, image} = req.body;
+        const {name, location_of_origin, age, workplace, job_title} = req.body;
+        const image = req.file;
+        console.log('FILE:', req.file);
+
         let lastId = await knex('cards').max('id').first();
         console.log(lastId)
-        await knex('cards').insert({name: name, location_of_origin: location, age: age, workplace: workplace, job_title: job, image_url: image, user_id: userId})
+        
+        await knex('cards').insert({
+            name: name, 
+            location_of_origin: location_of_origin, 
+            age: age, workplace: workplace, 
+            job_title: job_title, 
+            image_url: image ? image.filename : null, 
+            user_id: userId})
 
         res.json({message: 'Card has been stored'})
 

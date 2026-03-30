@@ -4,11 +4,11 @@ export default function Card({name, location, age, workplace, job, image }) {
   return (
     <div>
       <p>Name: {name}</p>
-      <p>Name: {location}</p>
-      <p>Name: {age}</p>
-      <p>Name: {workplace}</p>
-      <p>Name: {job}</p>
-      <p>Name: {image}</p>
+      <p>Location: {location}</p>
+      <p>Age: {age}</p>
+      <p>Workplace: {workplace}</p>
+      <p>Job: {job}</p>
+      <p>Image: <img src={`http://localhost:8080/uploads/${image}`} alt={name} height="50px" width="50px" /></p>
     </div>
   )
 }

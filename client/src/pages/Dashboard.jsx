@@ -9,6 +9,7 @@ export default function Dashboard() {
     //extract user info and logout function from context
     const {user, logout} = useContext(ProfileContext)
     const [cards, setCards] = useState([])
+    const [image, setImage] = useState(null)
     
     //Navigate for redirecting after logout
     const navi = useNavigate()
@@ -30,7 +31,9 @@ export default function Dashboard() {
             navi('/')
         }
     }
-
+    const handleChange = (e) => {
+        setImage(e.target.files[0])
+    }
     const handleCreateSubmit = async (e) => {
         e.preventDefault()
         const form = e.target;
@@ -40,9 +43,10 @@ export default function Dashboard() {
         const location = form.location.value;
         const workplace = form.workplace.value;
         const job = form.job.value;
-        const image = form.image.value
+        const image = form.image.files[0];
         createCard({name, location, age, workplace, job, image})
     }
+
 
     if(cards.length < 1){
         return(
@@ -70,9 +74,11 @@ export default function Dashboard() {
             <input type='text' name='age' placeholder='age' />
             <input type='text' name='workplace' placeholder='their workplace' />
             <input type='text' name='job' placeholder='their full job title' />
-            <input type='text' name='image' placeholder='an image of them' />
+            <input type='file' accept='image/*' name='image' onChange={handleChange} />
             <button>Submit</button>
         </form>
+        <p>Image preview</p>
+        {image && <img src={URL.createObjectURL(image)} alt='preview' height='100px' width='100px' />}
 
         <button onClick={handleLogout} className = 'login-btn logout-btn'>Logout</button>
         </div>

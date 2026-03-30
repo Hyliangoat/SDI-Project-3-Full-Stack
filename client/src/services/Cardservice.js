@@ -32,15 +32,20 @@ const getCards = async () => {
 
 const createCard = async ({name, location, age, workplace, job, image}) => {
 
-    console.log(name, location, age, workplace, job, image)
     try{
-        const res = await authFetch(url,{
-            method: 'POST', //Post request to send data
-            headers: {
-                'Content-Type': 'application/json' //sending json data
-            },
-            body: JSON.stringify({name, location, age, workplace, job, image}) //Payload with all the card info
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('location_of_origin', location);
+        formData.append('age', age);
+        formData.append('workplace', workplace);
+        formData.append('job_title', job);
+        formData.append('image', image);
+        
+        const res = await authFetch(url, {
+            method: 'POST',
+            body: formData
         })
+        
 
          if (!res.ok) {
             console.error('Failed to create card')
