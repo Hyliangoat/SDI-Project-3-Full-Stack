@@ -29,7 +29,7 @@ const getCards = async () => {
     }
 }
 
-const createCard = async ({name, location, age, workplace, job, image}) => {
+const createCard = async ({name, location, age, workplace, job, image, details, phone, email}) => {
 
     try{
         const formData = new FormData();
@@ -39,6 +39,9 @@ const createCard = async ({name, location, age, workplace, job, image}) => {
         formData.append('workplace', workplace);
         formData.append('job_title', job);
         formData.append('image', image);
+        formData.append('description', details);
+        formData.append('phone_number', phone);
+        formData.append('email', email);
         
         const res = await authFetch(url, {
             method: 'POST',
@@ -74,4 +77,34 @@ const deleteCard = async (id) => {
     }
 }
 
-export {getCards, createCard, deleteCard}
+const updateCard = async (id, {name, location, age, workplace, job, image, details, phone, email}) => {
+
+    try{
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('location_of_origin', location);
+        formData.append('age', age);
+        formData.append('workplace', workplace);
+        formData.append('job_title', job);
+        if (image) {
+            formData.append('image', image);
+        }
+        formData.append('description', details);
+        formData.append('phone_number', phone);
+        formData.append('email', email);
+        
+        const res = await authFetch(`${url}/${id}`, {
+            method: 'PUT',
+            body: formData
+        })
+        if (!res.ok) {
+            console.error('Failed to update card')
+            return res.json();
+        }
+        return res.json();
+    } catch (err) {
+        console.log('Uh oh spaghettios we couldnt update it')
+    }
+}
+
+export {getCards, createCard, deleteCard, updateCard}
