@@ -6,7 +6,7 @@ export default function Card({id, name, location, age, workplace, job, image }) 
   return (
     <div>
       <img src={`http://localhost:8080/uploads/${image}`} alt={name} height="50px" width="50px" />
-      <p>Name: {name}</p>
+      <h4>Name: {name}</h4>
       <p>Location: {location}</p>
       <p>Age: {age}</p>
       <p>Workplace: {workplace}</p>

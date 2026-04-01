@@ -1,0 +1,16 @@
+.headerBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 28px;
+
+    background: linear-gradient(90deg, #f8fafc, #eef2f7);
+
+    border-bottom: 1px solid #d1d5db;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    position: relative;
+    z-index: 10;
+}

@@ -13,7 +13,7 @@ export const ProfileProvider = ({children}) => {
     const login = (token) => {
         localStorage.setItem('token', token); //save it to localstorage
         const decoded = jwtDecode(token) //decode the token to get user info
-        setUser({user: decoded.username}) //store user info in contextstate
+        setUser({username: decoded.username}) //store user info in contextstate
     }
 
     //logout
@@ -28,7 +28,8 @@ export const ProfileProvider = ({children}) => {
         const token = localStorage.getItem('token')
         if(token) {
             const decoded = jwtDecode(token) //decode on page refresh
-            setUser({user: decoded.username}) //restore user context state
+            setUser({username: decoded.username}) //restore user context state
+            console.log(decoded)
         }
     }, [])
 

@@ -13,6 +13,7 @@ export default function Form(props) {
                 value={props.password}
                 type='password'
                 placeholder="Password" />
+                <br/>
             <button className='login-btn'>
                 {props.submitBtnTxt}
             </button>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {ProfileContext} from '../contexts/ProfileContext'
 import Form from '../components/Form'
 import { registerUser, loginUser } from '../services/Authservice'
+import './Menu.css'
 
 export default function Menu() {
     //Access login from context
@@ -63,31 +64,33 @@ export default function Menu() {
     }
 
     return (
-        <>
+        <div className='menuContainer'>
             {/*Server messages*/}
             <div className={data.success ? 'okStatus' : 'errStatus'}>
                 {data.message}
             </div>
 
             {/*Reusable form*/}
-            <Form
-                handleSubmit={handleSubmit}
-                handleUsernameInput={handleUsernameInput}
-                handlePasswordInput={handlePasswordInput}
-                username={username}
-                password={password}
-                isLoginMode={isLoginMode}
-                submitBtnTxt={submitBtnTxt}
-            />
+            <div className='loginContainer'>
+                <Form
+                    handleSubmit={handleSubmit}
+                    handleUsernameInput={handleUsernameInput}
+                    handlePasswordInput={handlePasswordInput}
+                    username={username}
+                    password={password}
+                    isLoginMode={isLoginMode}
+                    submitBtnTxt={submitBtnTxt}
+                />
+            </div>
 
             {/*Toggle login/signup*/}
             <div className="signupContainer">
                 <p>{modeText}</p>
-                <button onClick={handleSignUpText} className='login-btn signup-btn'>
+                <button onClick={handleSignUpText}>
                     {toggleBtnTxt}
                 </button>
             </div>
-        </>
+        </div>
 
     )
     

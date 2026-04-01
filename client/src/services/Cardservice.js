@@ -1,10 +1,6 @@
 const url = 'http://localhost:8080/api/cards';
 
-//Create/post a card
 
-
-
-//Get/fetch all cards
 const authFetch = (url, options = {}) => {
     const token = localStorage.getItem("token")
     return fetch(url, {
@@ -22,7 +18,6 @@ const getCards = async () => {
     try{
         const cardList = await authFetch(url)
         let cards = await cardList.json();
-        console.log(cards)
         return cards;
     } catch(err){
         console.log('Something went wrong')
